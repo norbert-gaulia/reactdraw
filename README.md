@@ -2,7 +2,7 @@
 
 ![npm](https://img.shields.io/npm/v/@jzohdi/react-draw) ![downloads](https://img.shields.io/npm/dm/@jzohdi/react-draw) [![bundlephobia](https://img.shields.io/bundlephobia/minzip/@jzohdi/react-draw)](https://bundlephobia.com/package/@jzohdi/react-draw)
 
-A plugin-architecture drawing area for React. Pick the tools you need (free draw, shapes, text, arrows, selection, erase, undo/redo, etc.), customize the UI, or build your own tools. Written in TypeScript.
+A plugin-architecture drawing area for React. Pick the tools you need (free draw, shapes, text, arrows, selection, erase, undo/redo, etc.), customize the UI, or build your own tools. Written in vanilla JavaScript.
 
 - Lightweight and modular — import only the tools you use
 - Customizable UI — style via `styles`/`classNames` or bring your own components
@@ -27,7 +27,7 @@ pnpm add @jzohdi/react-draw
 
 The smallest setup: a free-draw canvas with no toolbars.
 
-```tsx
+```jsx
 import { ReactDraw, freeDrawTool } from "@jzohdi/react-draw";
 
 export default function MyComponent() {
@@ -42,9 +42,24 @@ export default function MyComponent() {
 }
 ```
 
+## Vanilla JavaScript demos
+
+Looking for a complete working project? Check out the [`demos`](./demos) directory. Each demo is a small Vite app that uses the package directly from source:
+
+- `basic-react` shows the default toolbars and menu components wired together.
+- `save-image` demonstrates exporting the current canvas as an SVG file using the `contextGetter` prop.
+
+Run a demo by installing its dependencies and starting the Vite dev server:
+
+```bash
+cd demos/basic-react
+npm install
+npm run dev
+```
+
 ## Full example (all tools + style controls)
 
-```tsx
+```jsx
 import {
   ReactDraw,
   // drawing tools
@@ -79,7 +94,7 @@ const styleComponents = {
   lineWidth: { order: 1, component: LineWidthStyle },
   opacity: { order: 0, component: OpacityStyle },
   fontSize: { order: 2, component: FontSizeStyle },
-}
+};
 
 export default function App() {
   return (
@@ -114,22 +129,20 @@ export default function App() {
 
 ## Save and load (serialization)
 
-```ts
+```js
 import {
   serializeObjects,
   deserializeData,
   serializeFreeDraw,
   deserializeFreeDraw,
-  Serializers,
-  Deserializers,
   freeDrawTool,
 } from "@jzohdi/react-draw";
 
-const serializers: Serializers = {
+const serializers = {
   [freeDrawTool.id]: serializeFreeDraw,
 };
 
-const deserializers: Deserializers = {
+const deserializers = {
   [freeDrawTool.id]: deserializeFreeDraw,
 };
 
